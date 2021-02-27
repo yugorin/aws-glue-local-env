@@ -1,0 +1,20 @@
+# docker-compose up -d
+version: '3'
+
+services:
+ minio1:
+  image: minio/minio
+  volumes:
+   - hoge1:/export
+  ports:
+   - "9000:9000"
+  environment:
+   MINIO_ACCESS_KEY: hogehoge
+   MINIO_SECRET_KEY: hogehoge
+  command: server http://minio/export
+
+
+## By default this config uses default local driver,
+## For custom volumes replace with volume driver configuration.
+volumes:
+  hoge1:

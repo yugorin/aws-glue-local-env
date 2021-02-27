@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "local-glue-scratch"
+version = "0.1.0"
+description = ""
+authors = ["yugorin4 <yug0rin@yahoo.co.jp>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+awscliv2 = "^1.5.2"
+boto3 = "^1.17.17"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
