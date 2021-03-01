@@ -2,3 +2,5 @@
 sample/
 download_file
 data/
+s3/
+.env

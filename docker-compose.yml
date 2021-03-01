@@ -1,20 +1,29 @@
 # docker-compose up -d
+# docker exec -it 0581c1d3ac5e pip install pytest pyspark==2.4.3 pytest-cov
 version: '3'
-
 services:
- minio1:
-  image: minio/minio
-  volumes:
-   - hoge1:/export
-  ports:
-   - "9000:9000"
-  environment:
-   MINIO_ACCESS_KEY: hogehoge
-   MINIO_SECRET_KEY: hogehoge
-  command: server http://minio/export
+  s3:
+    image: minio/minio:latest
+    container_name: 'minio'
+    ports:
+      - 9090:9000
+    volumes:
+      - ./s3:/export
+    environment:
+      - MINIO_ACCESS_KEY=AKIA0123456789ABCDEF
+      - MINIO_SECRET_KEY=0123456789/abcdefghi/ABCDEFGHI0123456789
+    entrypoint:
+      - /bin/sh
+      - -c
+    expose:
+        - 9300
+    command:
+      - /usr/bin/minio server /export
 
-
-## By default this config uses default local driver,
-## For custom volumes replace with volume driver configuration.
-volumes:
-  hoge1:
+  glue:
+    build:
+      context: ./
+      # context: ./python/
+      dockerfile: Dockerfile
+    external_links:
+      - s3
